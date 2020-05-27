@@ -66,7 +66,7 @@ int main (int argc, char **argv)
     JpegData jpegData = leerImagenes();
     Pixel **matriz = guardarData(jpegData);
     JpegData jpegData1 = convertirAEscalaGrises(jpegData);
-    escribirImagenes(jpegData1);
+    escribirImagenes(jpegData1, "escalagrises");
 
     liberarJpeg(&jpegData);
     liberarJpeg(&jpegData1);
