@@ -7,6 +7,7 @@
 #include <jpeglib.h>
 #include <inttypes.h>
 #include "../incl/lecturaImagenes.h"
+#include "../incl/escrituraImagenes.h"
 
 
 //Funcion Main
@@ -62,6 +63,10 @@ int main (int argc, char **argv)
    
 
     JpegData jpegData = leerImagenes();
+    Pixel **matriz = guardarData(jpegData);
+    JpegData jpegData1 = convertirARojo(jpegData, matriz);
+    escribirImagenes(jpegData1);
+
     liberarJpeg(&jpegData);
 	return 0;
 }
