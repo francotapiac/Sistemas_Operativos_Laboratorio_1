@@ -33,7 +33,7 @@ int escribirJpeg(const JpegData *jpegData,
     cinfo.image_width      = jpegData->width;
     cinfo.image_height     = jpegData->height;
     cinfo.input_components = jpegData->ch;
-    cinfo.in_color_space   = JCS_RGB;
+    cinfo.in_color_space   = JCS_GRAYSCALE;
     jpeg_set_defaults(&cinfo);
 
     // 4.
