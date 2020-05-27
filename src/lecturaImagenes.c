@@ -85,55 +85,6 @@ int leerJpeg(JpegData *jpegData,
 }
 
 
-// write JPEG image
-// 1. create JPEG compression object
-// 2. specify destination data
-// 3. set parameters
-// 4. start compression
-// 5. scan lines
-// 6. finish compression
-int escribirJpeg(const JpegData *jpegData,
-                const char *dstfile,
-                struct jpeg_error_mgr *jerr)
-{
-    // 1.
-    struct jpeg_compress_struct cinfo;
-    jpeg_create_compress(&cinfo);
-    cinfo.err = jpeg_std_error(jerr);
-
-    FILE *fp = fopen(dstfile, "wb");
-    if (fp == NULL) {
-        printf("Error: failed to open %s\n", dstfile);
-        return 0;
-    }
-    // 2.
-    jpeg_stdio_dest(&cinfo, fp);
-
-    // 3.
-    cinfo.image_width      = jpegData->width;
-    cinfo.image_height     = jpegData->height;
-    cinfo.input_components = jpegData->ch;
-    cinfo.in_color_space   = JCS_RGB;
-    jpeg_set_defaults(&cinfo);
-
-    // 4.
-    jpeg_start_compress(&cinfo, 1);
-
-    // 5.
-    uint8_t *row = jpegData->data;
-    const uint32_t stride = jpegData->width * jpegData->ch;
-    for (int y = 0; y < jpegData->height; y++) {
-        jpeg_write_scanlines(&cinfo, &row, 1);
-        row += stride;
-    }
-
-    // 6.
-    jpeg_finish_compress(&cinfo);
-    jpeg_destroy_compress(&cinfo);
-    fclose(fp);
-
-    return 1;
-}
 
 void printPixeles(JpegData jpegData){
         printf("width = %" PRIu32 "\n", jpegData.width);
@@ -199,29 +150,14 @@ JpegData leerImagenes(){
     JpegData jpegData;
     struct jpeg_error_mgr jerr;
     char *src = "./16.jpg";
-    char *dst = "./out.jpg";
     if (!leerJpeg(&jpegData, src, &jerr)){
         liberarJpeg(&jpegData);
         return jpegData;
     }
     printf("Leer:  %s\n", src);
-    
-    //printPixeles(jpegData);
-    //Pixel **matriz = guardarData(jpegData);
-    //JpegData jpegData1 = convertirARojo(jpegData, matriz);
-
-    // reverse all bits
-    //int size = jpegData.width * jpegData.height * jpegData.ch;
-    //for (int i = 0; i < size; i++) {
-    //    jpegData.data[i] = ~jpegData.data[i];
-    //}
-    /*
-    if (!escribirJpeg(&jpegData1, dst, &jerr)){
-        liberarJpeg(&jpegData1);
-        return jpegData;
-    }
-    printf("Write: %s\n", dst);
-    */
     return jpegData;
 }
+
+
+
 

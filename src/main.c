@@ -8,6 +8,7 @@
 #include <inttypes.h>
 #include "../incl/lecturaImagenes.h"
 #include "../incl/conversion.h"
+#include "../incl/escrituraImagenes.h"
 
 
 //Funcion Main
@@ -63,8 +64,12 @@ int main (int argc, char **argv)
    
 
     JpegData jpegData = leerImagenes();
-    jpegData = convertirAEscalaGrises(jpegData);
-    
+    Pixel **matriz = guardarData(jpegData);
+    JpegData jpegData1 = convertirAEscalaGrises(jpegData);
+    escribirImagenes(jpegData1);
+
+    liberarJpeg(&jpegData);
+    liberarJpeg(&jpegData1);
 	return 0;
 }
 
