@@ -68,6 +68,8 @@ int main (int argc, char **argv)
     escribirImagenes(jpegData1);
 
     liberarJpeg(&jpegData);
+    jpegData = convertirAEscalaGrises(jpegData);
+    
 	return 0;
 }
 
