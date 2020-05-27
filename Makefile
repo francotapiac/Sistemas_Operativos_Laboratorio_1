@@ -53,7 +53,7 @@ all: clean main
 main: $(OBJECTS)
 	$(eval LOCAL=true)
 	@echo "Generando ejecutable ..."
-	($(CC) $^ -lm $(DEBUG_MODE) $(SISTEMA)  -o $(EXECUTABLE_NAME) && echo "[OK]") \
+	($(CC) $^ -lm $(DEBUG_MODE) $(SISTEMA)  -o $(EXECUTABLE_NAME) -ljpeg && echo "[OK]") \
 		||  (echo "[ERROR]" && exit 1; )
 
 $(OBJ)/%.o: $(SRC)/%.c
