@@ -1,4 +1,4 @@
-#ifndef ESTRUCUTRAS_H
+#ifndef ESTRUCTURAS_H
 #define ESTRUCTURAS_H
 
 

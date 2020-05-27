@@ -7,6 +7,7 @@
 #include <jpeglib.h>
 #include <inttypes.h>
 #include "../incl/lecturaImagenes.h"
+#include "../incl/conversion.h"
 
 
 //Funcion Main
@@ -62,7 +63,8 @@ int main (int argc, char **argv)
    
 
     JpegData jpegData = leerImagenes();
-    liberarJpeg(&jpegData);
+    jpegData = convertirAEscalaGrises(jpegData);
+    
 	return 0;
 }
 

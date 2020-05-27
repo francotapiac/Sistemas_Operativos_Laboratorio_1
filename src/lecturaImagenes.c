@@ -207,20 +207,21 @@ JpegData leerImagenes(){
     printf("Leer:  %s\n", src);
     
     //printPixeles(jpegData);
-    Pixel **matriz = guardarData(jpegData);
-    JpegData jpegData1 = convertirARojo(jpegData, matriz);
+    //Pixel **matriz = guardarData(jpegData);
+    //JpegData jpegData1 = convertirARojo(jpegData, matriz);
 
     // reverse all bits
     //int size = jpegData.width * jpegData.height * jpegData.ch;
     //for (int i = 0; i < size; i++) {
     //    jpegData.data[i] = ~jpegData.data[i];
     //}
-
+    /*
     if (!escribirJpeg(&jpegData1, dst, &jerr)){
         liberarJpeg(&jpegData1);
         return jpegData;
     }
     printf("Write: %s\n", dst);
+    */
     return jpegData;
 }
 
