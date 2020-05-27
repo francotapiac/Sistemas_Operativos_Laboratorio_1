@@ -14,7 +14,8 @@
 // 6. finish compression
 int escribirJpeg(const JpegData *jpegData,
                 const char *dstfile,
-                struct jpeg_error_mgr *jerr)
+                struct jpeg_error_mgr *jerr, 
+                char *typeColorSpace)
 {
     // 1.
     struct jpeg_compress_struct cinfo;
@@ -33,7 +34,11 @@ int escribirJpeg(const JpegData *jpegData,
     cinfo.image_width      = jpegData->width;
     cinfo.image_height     = jpegData->height;
     cinfo.input_components = jpegData->ch;
-    cinfo.in_color_space   = JCS_GRAYSCALE;
+    if(typeColorSpace == "rgb")
+        cinfo.in_color_space   = JCS_RGB;
+    else
+        cinfo.in_color_space   = JCS_GRAYSCALE;
+    
     jpeg_set_defaults(&cinfo);
 
     // 4.
@@ -55,11 +60,11 @@ int escribirJpeg(const JpegData *jpegData,
     return 1;
 }
 
-JpegData escribirImagenes(JpegData jpegData1){
+JpegData escribirImagenes(JpegData jpegData1, char *typeColorSpace){
 
     struct jpeg_error_mgr jerr;
     char *dst = "./out.jpg";
-    if (!escribirJpeg(&jpegData1, dst, &jerr)){
+    if (!escribirJpeg(&jpegData1, dst, &jerr, typeColorSpace)){
         liberarJpeg(&jpegData1);
         return jpegData1;
     }
