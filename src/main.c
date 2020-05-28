@@ -69,6 +69,7 @@ int main (int argc, char **argv)
     escribirImagenes(jpegData, "escalagrises","./out1.jpg");
 	int **mascara = leerMascara(nombreArchivoMasc);
 	jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
+	  
 	escribirImagenes(jpegData, "escalagrises","./out2.jpg");
     liberarJpeg(&jpegData);
    

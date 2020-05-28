@@ -61,7 +61,7 @@ int escribirJpeg(const JpegData *jpegData,
 }
 
 JpegData escribirImagenes(JpegData jpegData1, char *typeColorSpace, char *nombreSalida){
-
+    printf("asfasfasfas");
     struct jpeg_error_mgr jerr;
     char *dst = nombreSalida;
     if (!escribirJpeg(&jpegData1, dst, &jerr, typeColorSpace)){

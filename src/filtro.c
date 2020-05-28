@@ -24,14 +24,7 @@ int **leerMascara(char *nombreMascara){
         mascara[i][2] = num3;
     }
 
-  int x,y;
-    for(x = 0; x < 3; x++){
-        for(y = 0; y < 3; y++){
-            printf("%d",mascara[x][y]);
-        }
-        printf("\n");
-    }
-
+  
     return mascara;
 }
 
@@ -46,25 +39,25 @@ int **crearPunteroMascara(){
 
 
 JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
-    int w = img.width;
-    int h = img.height;
+    int h = img.width;
+    int w = img.height;
     int loc = w +1;
     int i,j;
 
-    for(i = 0; i < h -1; i++){
-        for(j = 0; j < w - 1; j++){
+    for(i = 1; i < h -2; i++){
+        for(j = 1; j < w - 2; j++){
             calcularFiltro(&img,mascara,loc,w,h);
             loc++;
         }
         loc+=2;
     }
-
+    printf("loc = %d, wh = %d, w = %d, h = %d\n",loc,(w*h), w, h);
     return img;
 
 }
 
 void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
-    uint8_t n1 = img->data[loc - w -1]*mascara[0][0]; 
+    uint8_t n1 = img->data[loc - w -1]*mascara[0][0];
     uint8_t n2 = img->data[loc - w]*mascara[0][1]; 
     uint8_t n3 = img->data[loc - w + 1]*mascara[0][2]; 
     uint8_t n4 = img->data[loc - w]*mascara[1][0]; 
