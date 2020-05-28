@@ -60,7 +60,13 @@ int main (int argc, char **argv)
 
 
     
-    // src/dst file
+    // Para cada imagen
+	for (int i = 0; i < cantImagenes; i++)
+	{
+		//formar string "imagen_"+i
+		
+	}
+	
    
 
     JpegData jpegData = leerImagenes();
