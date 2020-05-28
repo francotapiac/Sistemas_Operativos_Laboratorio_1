@@ -9,6 +9,8 @@
 #include "../incl/lecturaImagenes.h"
 #include "../incl/conversion.h"
 #include "../incl/escrituraImagenes.h"
+#include "../incl/binarizacion.h"
+#include "../incl/clasificacion.h"
 
 
 //Funcion Main
@@ -65,17 +67,27 @@ int main (int argc, char **argv)
 	{
 		//formar string "imagen_"+i
 		
+		//1. Leer la imagen
+		JpegData jpegData = leerImagenes();
+		
+		//2. Convertir a escala de grises
+		jpegData = convertirAEscalaGrises(jpegData);
+		
+		//3. aplicar filtro laplaciano
+		
+		//4. binarizar imagen
+		jpegData = binarizarImagen(jpegData, umbralBin);
+
+		//5. Clasificar imagen
+		int nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
+
+		//6. Escribir imagen
+		escribirImagenes(jpegData, "escalagrises");
+
+		//7. liberar memoria
+		liberarJpeg(&jpegData);
 	}
-	
-   
 
-    JpegData jpegData = leerImagenes();
-    Pixel **matriz = guardarData(jpegData);
-    JpegData jpegData1 = convertirAEscalaGrises(jpegData);
-    escribirImagenes(jpegData1, "escalagrises");
-
-    liberarJpeg(&jpegData);
-    liberarJpeg(&jpegData1);
 	return 0;
 }
 
