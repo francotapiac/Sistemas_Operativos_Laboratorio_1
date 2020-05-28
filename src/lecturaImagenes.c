@@ -5,14 +5,6 @@
 #include <inttypes.h>
 #include "../incl/lecturaImagenes.h"
 
-Pixel crearPixel(uint8_t r, uint8_t g, uint8_t b){
-    Pixel new;
-    new.R = r;
-    new.G = g;
-    new.B = b;
-    return new;
-}
-
 // allocate memory for raw data
 void alloc_jpeg(JpegData *jpegData){
     jpegData->data = NULL;
@@ -84,66 +76,6 @@ int leerJpeg(JpegData *jpegData,
     return 1;
 }
 
-
-
-void printPixeles(JpegData jpegData){
-        printf("width = %" PRIu32 "\n", jpegData.width);
-    printf("height = %" PRIu32 "\n", jpegData.height);
-    printf("chanels = %" PRIu32 "\n", jpegData.ch);
-
-    uint8_t num = 0;
-    int loc = 0;
-
-    for (int i = 0; i < jpegData.height; i++)
-    {
-        for (int j = 0; j < jpegData.width*jpegData.ch; j++)
-        {
-            num = jpegData.data[loc];
-            printf("%" PRId8 " ", num);
-            loc++;
-        }
-        printf("\n");
-        
-    }
-}
-
-Pixel **guardarData(JpegData jpegData){
-    uint8_t num1 = 0, num2 = 0, num3 = 0;
-    int loc = 0;
-    
-    Pixel **matriz;
-    matriz = (Pixel **)malloc (jpegData.height*sizeof(Pixel *));
-    for (int i=0;i<jpegData.height;i++)
-        matriz[i] = (Pixel *) malloc (jpegData.width*sizeof(Pixel));
-
-    for (int i = 0; i < jpegData.height; i++)
-    {
-        for (int j = 0; j < jpegData.width; j++)
-        {
-             num1 = jpegData.data[loc];
-             num2 = jpegData.data[loc+1];
-             num3 = jpegData.data[loc+2];
-
-             matriz[i][j] = crearPixel(num1,num2,num3);
-            
-            loc= loc+3;
-        }
-        
-    }
-    printf("Los datos se guardaron correctamente\n");
-    return matriz;
-}
-
-JpegData convertirARojo(JpegData jpegData, Pixel **matriz){
-    for (int i = 0; i < jpegData.height*jpegData.width*jpegData.ch; i+=3)
-    {
-        jpegData.data[i] = 0;
-        jpegData.data[i+1] = 0;
-        jpegData.data[i+2] = jpegData.data[i+2];  
-    }
-    printf("aqui\n");
-    return jpegData;
-}
 
 
 JpegData leerImagenes(){

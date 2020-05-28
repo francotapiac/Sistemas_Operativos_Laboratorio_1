@@ -9,6 +9,7 @@
 #include "../incl/lecturaImagenes.h"
 #include "../incl/escrituraImagenes.h"
 #include "../incl/conversion.h"
+#include "../incl/filtro.h"
 
 
 //Funcion Main
@@ -60,14 +61,15 @@ int main (int argc, char **argv)
 
 
     
-    // src/dst file
-   
 
+   
     JpegData jpegData = leerImagenes();
-    Pixel **matriz = guardarData(jpegData);
-	JpegData jpegData1 = convertirAEscalaGrises(jpegData);
-    escribirImagenes(jpegData1);
-	
+	jpegData = convertirAEscalaGrises(jpegData);
+
+    escribirImagenes(jpegData, "escalagrises","./out1.jpg");
+	int **mascara = leerMascara(nombreArchivoMasc);
+	jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
+	escribirImagenes(jpegData, "escalagrises","./out2.jpg");
     liberarJpeg(&jpegData);
    
     
