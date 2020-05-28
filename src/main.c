@@ -1,4 +1,3 @@
-
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -6,6 +5,7 @@
 #include <unistd.h>
 #include <jpeglib.h>
 #include <inttypes.h>
+#include <string.h>
 #include "../incl/lecturaImagenes.h"
 #include "../incl/conversion.h"
 #include "../incl/escrituraImagenes.h"
@@ -66,6 +66,11 @@ int main (int argc, char **argv)
 	for (int i = 0; i < cantImagenes; i++)
 	{
 		//formar string "imagen_"+i
+		char *snum;
+		char *filename = "imagen_";
+		sprintf(snum, "%d", i);
+		strcat(filename,snum);
+		strcat(filename, ".jpg");
 		
 		//1. Leer la imagen
 		JpegData jpegData = leerImagenes();
