@@ -79,9 +79,10 @@ int leerJpeg(JpegData *jpegData,
 
 
 JpegData leerImagenes(){
+    printf("asfasds");
     JpegData jpegData;
     struct jpeg_error_mgr jerr;
-    char *src = "./16.jpg";
+    char *src = "./imagen_1.jpg";
     if (!leerJpeg(&jpegData, src, &jerr)){
         liberarJpeg(&jpegData);
         return jpegData;

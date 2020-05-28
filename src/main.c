@@ -71,7 +71,7 @@ int main (int argc, char **argv)
 	for (int i = 0; i < cantImagenes; i++)
 	{
 		//formar string "imagen_"+i
-		char *snum;
+		char *snum; -c
 		char *imagename = "imagen_";
 		char *filename;
 		sprintf(snum, "%d", i);
@@ -85,7 +85,10 @@ int main (int argc, char **argv)
 		jpegData = convertirAEscalaGrises(jpegData);
 		
 		//3. aplicar filtro laplaciano
-		
+		int **mascara = leerMascara(nombreArchivoMasc);
+		jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
+		escribirImagenes(jpegData, "escalagrises",".out2.jpg");
+
 		//4. binarizar imagen
 		jpegData = binarizarImagen(jpegData, umbralBin);
 
@@ -93,7 +96,7 @@ int main (int argc, char **argv)
 		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 
 		//6. Escribir imagen
-		escribirImagenes(jpegData, "escalagrises");
+		escribirImagenes(jpegData, "escalagrises",".out3.jpg");
 
 		//7. liberar memoria
 		liberarJpeg(&jpegData);
@@ -103,9 +106,7 @@ int main (int argc, char **argv)
 		}
 	}
 
-	int **mascara = leerMascara(nombreArchivoMasc);
-	jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
-	escribirImagenes(jpegData, "escalagrises","./out2.jpg");
+	
 	return 0;
 }
 
