@@ -20,7 +20,7 @@ int main (int argc, char **argv)
 	int cantImagenes = 0;
 	int umbralBin = 0;
 	int umbralNeg = 0;
-	int flagConclusion = 0;
+	int flagResultados = 0;
 	char *nombreArchivoMasc = NULL;
 	int index;
 	int c;
@@ -44,7 +44,7 @@ int main (int argc, char **argv)
 				nombreArchivoMasc = optarg;
 				break;
 			case 'b':
-				flagConclusion = 1;
+				flagResultados = 1;
 				break;
 			case '?':
 				if (optopt == 'c')
@@ -60,16 +60,20 @@ int main (int argc, char **argv)
 				abort ();
 			}
 
-
+	if(flagResultados){
+		printf("|          image          |       nearly black       |\n");
+		printf("|-------------------------|--------------------------|\n");
+	}
     
     // Para cada imagen
 	for (int i = 0; i < cantImagenes; i++)
 	{
 		//formar string "imagen_"+i
 		char *snum;
-		char *filename = "imagen_";
+		char *imagename = "imagen_";
+		char *filename;
 		sprintf(snum, "%d", i);
-		strcat(filename,snum);
+		strcat(imagename,snum);
 		strcat(filename, ".jpg");
 		
 		//1. Leer la imagen
@@ -84,13 +88,17 @@ int main (int argc, char **argv)
 		jpegData = binarizarImagen(jpegData, umbralBin);
 
 		//5. Clasificar imagen
-		int nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
+		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 
 		//6. Escribir imagen
 		escribirImagenes(jpegData, "escalagrises");
 
 		//7. liberar memoria
 		liberarJpeg(&jpegData);
+
+		if(flagResultados){
+			printf("|          %s          |             %s          |\n", imagename, nearlyBlack);
+		}
 	}
 
 	return 0;

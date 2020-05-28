@@ -1,6 +1,6 @@
 #include "../incl/clasificacion.h"
 
-int analisisDePropiedad(JpegData img, int umbral){
+char *analisisDePropiedad(JpegData img, int umbral){
 
     int len = img.width*img.height;
     int cont = 0;
@@ -17,10 +17,10 @@ int analisisDePropiedad(JpegData img, int umbral){
     double porcentajeNegrura = (cont*100)/len;
 
     if (porcentajeNegrura >= umbral){
-        return 1;
+        return "yes";
     }
     else{
-        return 0;
+        return "no";
     }
     
 }
