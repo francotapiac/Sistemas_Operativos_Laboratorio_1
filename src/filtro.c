@@ -39,13 +39,13 @@ int **crearPunteroMascara(){
 
 
 JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
-    int h = img.width;
-    int w = img.height;
+    int w = img.width;
+    int h= img.height;
     int loc = w +1;
     int i,j;
 
-    for(i = 1; i < h -2; i++){
-        for(j = 1; j < w - 2; j++){
+    for(i = 0; i < h -2; i++){
+        for(j = 0; j < w - 2; j++){
             calcularFiltro(&img,mascara,loc,w,h);
             loc++;
         }
@@ -60,7 +60,7 @@ void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
     uint8_t n1 = img->data[loc - w -1]*mascara[0][0];
     uint8_t n2 = img->data[loc - w]*mascara[0][1]; 
     uint8_t n3 = img->data[loc - w + 1]*mascara[0][2]; 
-    uint8_t n4 = img->data[loc - w]*mascara[1][0]; 
+    uint8_t n4 = img->data[loc - 1]*mascara[1][0]; 
     uint8_t n5 = img->data[loc]*mascara[1][1]; 
     uint8_t n6 = img->data[loc + 1]*mascara[1][2]; 
     uint8_t n7 = img->data[loc + w -1]*mascara[2][0]; 

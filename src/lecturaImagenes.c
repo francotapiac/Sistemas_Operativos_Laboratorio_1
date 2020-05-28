@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include <jpeglib.h>
 #include <inttypes.h>
-#include <string.h>
 #include "../incl/lecturaImagenes.h"
 
 // allocate memory for raw data
@@ -79,12 +78,10 @@ int leerJpeg(JpegData *jpegData,
 
 
 
-JpegData leerImagenes(char *filename){
+JpegData leerImagenes(){
     JpegData jpegData;
     struct jpeg_error_mgr jerr;
-    char *src = filename;
-    printf("todo ok\n");
-    
+    char *src = "./imagen_1.jpg";
     if (!leerJpeg(&jpegData, src, &jerr)){
         liberarJpeg(&jpegData);
         return jpegData;
