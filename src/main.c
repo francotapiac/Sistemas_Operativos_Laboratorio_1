@@ -65,19 +65,11 @@ int main (int argc, char **argv)
 		printf("|          image          |       nearly black       |\n");
 		printf("|-------------------------|--------------------------|\n");
 	}
-    
+	
     // Para cada imagen
 	for (int i = 1; i <= cantImagenes; i++)
 	{
-		//formar string "imagen_"+i
-		/*char *snum;
-		char *imagename = "imagen_";
-		char *filename;
-		sprintf(snum, "%d", i);
-		printf("entra en el for\n");
-		strcat(imagename,snum);
-		strcat(filename, ".jpg");
-		*/
+
 		char filename[30];
 		char imagename[30];
 		sprintf(filename,"./imagen_%i.jpg",i);
@@ -95,7 +87,7 @@ int main (int argc, char **argv)
 		
 		//4. binarizar imagen
 		jpegData = binarizarImagen(jpegData, umbralBin);
-
+	    
 		//5. Clasificar imagen
 		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 

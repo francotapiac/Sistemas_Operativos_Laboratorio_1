@@ -45,7 +45,7 @@ int escribirJpeg(const JpegData *jpegData,
     jpeg_start_compress(&cinfo, 1);
 
     // 5.
-    uint8_t *row = jpegData->data;
+    uint8_t *row = (uint8_t*)jpegData->data;
     const uint32_t stride = jpegData->width * jpegData->ch;
     for (int y = 0; y < jpegData->height; y++) {
         jpeg_write_scanlines(&cinfo, &row, 1);

@@ -13,8 +13,8 @@ char *analisisDePropiedad(JpegData img, int umbral){
             cont++;
         }
     }
-
-    double porcentajeNegrura = (cont*100)/len;
+    
+    float porcentajeNegrura = (cont*100)/len;
 
     if (porcentajeNegrura >= umbral){
         return "yes";
