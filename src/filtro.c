@@ -51,7 +51,7 @@ JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
         }
         loc+=2;
     }
-    printf("loc = %d, wh = %d, w = %d, h = %d\n",loc,(w*h), w, h);
+    //printf("loc = %d, wh = %d, w = %d, h = %d\n",loc,(w*h), w, h);
     return img;
 
 }

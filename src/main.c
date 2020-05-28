@@ -85,7 +85,7 @@ int main (int argc, char **argv)
 		
 		//1. Leer la imagen
 		JpegData jpegData = leerImagenes(filename);
-		printf("se lee la imagen\n");
+		
 		//2. Convertir a escala de grises
 		jpegData = convertirAEscalaGrises(jpegData);
 		
@@ -100,13 +100,15 @@ int main (int argc, char **argv)
 		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 
 		//6. Escribir imagen
-		escribirImagenes(jpegData, "escalagrises","./out1.jpg");
+		char fileout[30];
+		sprintf(fileout,"./out_%i.jpg",i);
+		escribirImagenes(jpegData, "escalagrises",fileout);
 
 		//7. liberar memoria
 		liberarJpeg(&jpegData);
 
 		if(flagResultados){
-			printf("|          %s          |             %s          |\n", imagename, nearlyBlack);
+			printf("|          %s       |             %s           |\n", imagename, nearlyBlack);
 		}
 	}
 

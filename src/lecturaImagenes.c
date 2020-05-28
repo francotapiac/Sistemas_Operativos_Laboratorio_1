@@ -83,13 +83,12 @@ JpegData leerImagenes(char *filename){
     JpegData jpegData;
     struct jpeg_error_mgr jerr;
     char *src = filename;
-    printf("todo ok\n");
     
     if (!leerJpeg(&jpegData, src, &jerr)){
         liberarJpeg(&jpegData);
         return jpegData;
     }
-    printf("Leer:  %s\n", src);
+    //printf("Leer:  %s\n", src);
     return jpegData;
 }
 
