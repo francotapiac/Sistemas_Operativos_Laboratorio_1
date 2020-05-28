@@ -10,9 +10,4 @@ int leerJpeg(JpegData *jpegData,
               const char *srcfile,
               struct jpeg_error_mgr *jerr);
 
-void printPixeles(JpegData jpegData);
-Pixel **guardarData(JpegData jpegData);
-JpegData convertirARojo(JpegData jpegData, Pixel **matriz);
-
-
 #endif

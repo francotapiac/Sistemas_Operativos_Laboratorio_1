@@ -2,7 +2,7 @@
 #define ESCRITURA_H
 #include "estructuras.h"
 
-JpegData escribirImagenes(JpegData jpegData1, char *typeColorSpace);
+JpegData escribirImagenes(JpegData jpegData1, char *typeColorSpace, char *nombreSalida);
 int escribirJpeg(const JpegData *jpegData,
                 const char *dstfile,
                 struct jpeg_error_mgr *jerr,

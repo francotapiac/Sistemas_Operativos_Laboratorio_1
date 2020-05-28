@@ -7,10 +7,11 @@
 #include <inttypes.h>
 #include <string.h>
 #include "../incl/lecturaImagenes.h"
-#include "../incl/conversion.h"
 #include "../incl/escrituraImagenes.h"
 #include "../incl/binarizacion.h"
 #include "../incl/clasificacion.h"
+#include "../incl/conversion.h"
+#include "../incl/filtro.h"
 
 
 //Funcion Main
@@ -66,23 +67,31 @@ int main (int argc, char **argv)
 	}
     
     // Para cada imagen
-	for (int i = 0; i < cantImagenes; i++)
+	for (int i = 1; i <= cantImagenes; i++)
 	{
 		//formar string "imagen_"+i
-		char *snum;
+		/*char *snum;
 		char *imagename = "imagen_";
 		char *filename;
 		sprintf(snum, "%d", i);
+		printf("entra en el for\n");
 		strcat(imagename,snum);
 		strcat(filename, ".jpg");
+		*/
+		char filename[30];
+		char imagename[30];
+		sprintf(filename,"./imagen_%i.jpg",i);
+		sprintf(imagename, "imagen_%i",i);
 		
 		//1. Leer la imagen
-		JpegData jpegData = leerImagenes();
-		
+		JpegData jpegData = leerImagenes(filename);
+		printf("se lee la imagen\n");
 		//2. Convertir a escala de grises
 		jpegData = convertirAEscalaGrises(jpegData);
 		
 		//3. aplicar filtro laplaciano
+		int **mascara = leerMascara(nombreArchivoMasc);
+		jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
 		
 		//4. binarizar imagen
 		jpegData = binarizarImagen(jpegData, umbralBin);
@@ -91,7 +100,7 @@ int main (int argc, char **argv)
 		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 
 		//6. Escribir imagen
-		escribirImagenes(jpegData, "escalagrises");
+		escribirImagenes(jpegData, "escalagrises","./out1.jpg");
 
 		//7. liberar memoria
 		liberarJpeg(&jpegData);
@@ -101,6 +110,8 @@ int main (int argc, char **argv)
 		}
 	}
 
+   
+    
 	return 0;
 }
 
