@@ -45,7 +45,7 @@ int escribirJpeg(const JpegData *jpegData,
     jpeg_start_compress(&cinfo, 1);
 
     // 5.
-    uint8_t *row = jpegData->data;
+    uint8_t *row = (uint8_t*)jpegData->data;
     const uint32_t stride = jpegData->width * jpegData->ch;
     for (int y = 0; y < jpegData->height; y++) {
         jpeg_write_scanlines(&cinfo, &row, 1);
@@ -61,14 +61,13 @@ int escribirJpeg(const JpegData *jpegData,
 }
 
 JpegData escribirImagenes(JpegData jpegData1, char *typeColorSpace, char *nombreSalida){
-    printf("asfasfasfas");
     struct jpeg_error_mgr jerr;
     char *dst = nombreSalida;
     if (!escribirJpeg(&jpegData1, dst, &jerr, typeColorSpace)){
         liberarJpeg(&jpegData1);
         return jpegData1;
     }
-    printf("Write: %s\n", dst);
+    //printf("Write: %s\n", dst);
     return jpegData1;
 }
 
