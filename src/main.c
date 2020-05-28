@@ -71,7 +71,7 @@ int main (int argc, char **argv)
 	for (int i = 0; i < cantImagenes; i++)
 	{
 		//formar string "imagen_"+i
-		char *snum; -c
+		char *snum; -c;
 		char *imagename = "imagen_";
 		char *filename;
 		sprintf(snum, "%d", i);
