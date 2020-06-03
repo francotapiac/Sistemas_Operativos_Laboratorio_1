@@ -5,6 +5,6 @@
  * Aqui se colocan las cabeceras de las funciones
  * que se creen en el archivo binarizacion.c
  */
-JpegData binarizarImagen(JpegData img, int umbral);
+JpegData binarizarImagen(JpegData img, uint8_t umbral);
 
 #endif

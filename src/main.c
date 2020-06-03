@@ -66,6 +66,8 @@ int main (int argc, char **argv)
 		printf("|-------------------------|--------------------------|\n");
 	}
 	
+	int **mascara = leerMascara(nombreArchivoMasc);
+
     // Para cada imagen
 	for (int i = 1; i <= cantImagenes; i++)
 	{
@@ -82,7 +84,6 @@ int main (int argc, char **argv)
 		jpegData = convertirAEscalaGrises(jpegData);
 		
 		//3. aplicar filtro laplaciano
-		int **mascara = leerMascara(nombreArchivoMasc);
 		jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
 		
 		//4. binarizar imagen

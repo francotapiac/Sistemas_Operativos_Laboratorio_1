@@ -9,7 +9,7 @@
 // allocate memory for raw data
 void alloc_jpeg(JpegData *jpegData){
     jpegData->data = NULL;
-    jpegData->data = (int*) malloc(sizeof(int)  *
+    jpegData->data = (uint8_t*) malloc(sizeof(uint8_t)  *
                                        jpegData->width  *
                                        jpegData->height *
                                        jpegData->ch);
@@ -62,7 +62,7 @@ int leerJpeg(JpegData *jpegData,
     alloc_jpeg(jpegData);
 
     // 6. read line by line
-    uint8_t *row = (uint8_t*)jpegData->data;
+    uint8_t *row = jpegData->data;
     const uint32_t stride = jpegData->width * jpegData->ch;
     for (int y = 0; y < jpegData->height; y++) {
         jpeg_read_scanlines(&cinfo, &row, 1);

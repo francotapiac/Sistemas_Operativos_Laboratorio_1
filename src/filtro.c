@@ -2,6 +2,7 @@
 #include <jpeglib.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <inttypes.h>
 #include "../incl/filtro.h"
 #include "../incl/lecturaImagenes.h"
 
@@ -44,33 +45,16 @@ JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
     int loc = w +1;
     int i,j;
 
-    JpegData filtro;
-    filtro.width = img.width;
-    filtro.height = img.height;
-    filtro.ch = img.ch;
-    alloc_jpeg(&filtro);
-
-    for (int i = 0; i < h*w; i++)
-    {
-        filtro.data[i] = img.data[i];
-    }
-    
-
 
     for(i = 1; i < h -1; i++){
         for(j = 1; j < w - 1; j++){
-            calcularFiltro(&filtro,mascara,loc,w,h);
+            calcularFiltro(&img,mascara,loc,w,h);
             loc++;
         }
         loc+=2;
     }
-    
-    for (int i = 0; i < w*h; i++)
-    {
-        img.data[i] = img.data[i] + filtro.data[i];
-    }
 
-    liberarJpeg(&filtro);
+    //liberarJpeg(&img);
     
 
 
@@ -82,7 +66,7 @@ void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
     int n1 = img->data[loc - w -1] * mascara[0][0];
     int n2 = img->data[loc - w] * mascara[0][1]; 
     int n3 = img->data[loc - w + 1]*mascara[0][2]; 
-    int n4 = img->data[loc - w]*mascara[1][0]; 
+    int n4 = img->data[loc - 1]*mascara[1][0]; 
     int n5 = img->data[loc]*mascara[1][1]; 
     int n6 = img->data[loc + 1]*mascara[1][2]; 
     int n7 = img->data[loc + w -1]*mascara[2][0]; 
@@ -90,6 +74,10 @@ void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
     int n9 = img->data[loc + w +1]*mascara[2][2];
 
     int resultado = n1 + n2 + n3 + n4 + n5 + n6 +n7 +n8 +n9; 
+    if(resultado < 0)
+        resultado = 0;
+    else if(resultado > 255)
+        resultado = 255;
     img->data[loc] = (resultado + 255)/2;
 
 }
