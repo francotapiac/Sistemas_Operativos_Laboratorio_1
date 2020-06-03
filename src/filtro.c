@@ -82,7 +82,7 @@ void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
     int n1 = img->data[loc - w -1] * mascara[0][0];
     int n2 = img->data[loc - w] * mascara[0][1]; 
     int n3 = img->data[loc - w + 1]*mascara[0][2]; 
-    int n4 = img->data[loc - w]*mascara[1][0]; 
+    int n4 = img->data[loc - 1]*mascara[1][0]; 
     int n5 = img->data[loc]*mascara[1][1]; 
     int n6 = img->data[loc + 1]*mascara[1][2]; 
     int n7 = img->data[loc + w -1]*mascara[2][0]; 
@@ -90,6 +90,6 @@ void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
     int n9 = img->data[loc + w +1]*mascara[2][2];
 
     int resultado = n1 + n2 + n3 + n4 + n5 + n6 +n7 +n8 +n9; 
-    img->data[loc] = (resultado + 255)/2;
+    img->data[loc] = resultado/9;
 
 }

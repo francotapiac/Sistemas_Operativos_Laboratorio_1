@@ -78,7 +78,7 @@ int leerJpeg(JpegData *jpegData,
 
 
 
-JpegData leerImagenes(){
+JpegData leerImagenes(char *filename){
     JpegData jpegData;
     struct jpeg_error_mgr jerr;
     char *src = filename;
