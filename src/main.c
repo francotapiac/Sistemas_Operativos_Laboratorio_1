@@ -65,8 +65,11 @@ int main (int argc, char **argv)
 		printf("|          image          |       nearly black       |\n");
 		printf("|-------------------------|--------------------------|\n");
 	}
-	
+
 	int **mascara = leerMascara(nombreArchivoMasc);
+
+	uint8_t num = -256;
+	printf("%" PRIu8 "\n", num);
 
     // Para cada imagen
 	for (int i = 1; i <= cantImagenes; i++)
@@ -85,10 +88,10 @@ int main (int argc, char **argv)
 		
 		//3. aplicar filtro laplaciano
 		jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
-		
+		/*
 		//4. binarizar imagen
 		jpegData = binarizarImagen(jpegData, umbralBin);
-	    
+	    */
 		//5. Clasificar imagen
 		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 

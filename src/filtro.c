@@ -78,6 +78,6 @@ void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
         resultado = 0;
     else if(resultado > 255)
         resultado = 255;
-    img->data[loc] = (resultado + 255)/2;
+    img->data[loc] = resultado;
 
 }

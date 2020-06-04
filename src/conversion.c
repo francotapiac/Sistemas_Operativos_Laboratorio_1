@@ -12,7 +12,7 @@ JpegData convertirAEscalaGrises(JpegData img){
     int len = img.height*img.width*img.ch;
     int loc = 0;
     int R, G, B;
-    float Y;
+    uint8_t Y;
     
     JpegData nuevaImg;
     nuevaImg.width = img.width;
