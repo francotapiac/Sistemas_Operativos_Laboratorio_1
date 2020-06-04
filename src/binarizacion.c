@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
-JpegData binarizarImagen(JpegData img, int umbral){
+JpegData binarizarImagen(JpegData img, uint8_t umbral){
 
     int len = img.width*img.height;
 
