@@ -14,6 +14,28 @@
 #include "../incl/filtro.h"
 
 
+void printearValores(JpegData img, int w, int h){
+	int loc = 0;
+	printf("Valores uint8_t:\n\n");
+	for (int i = 0; i < h; i++){
+		for (int j = 0; j < w; j++){
+			printf("%" PRIu8 " ", img.data[loc]);
+			loc++;
+		}
+		printf("\n");
+	}
+	loc = 0;
+	printf("Valores int:\n\n");
+	for (int i = 0; i < h; i++){
+		for (int j = 0; j < w; j++){
+			printf("%d ",img.data[loc]);
+			loc++;
+		}
+		printf("\n");	
+	}
+	
+}
+
 //Funcion Main
 int main (int argc, char **argv)
 {
@@ -68,8 +90,13 @@ int main (int argc, char **argv)
 
 	int **mascara = leerMascara(nombreArchivoMasc);
 
-	uint8_t num = -256;
+	uint8_t num = 10;
+	num = num*(-1);
+	int entero = (int)num;
 	printf("%" PRIu8 "\n", num);
+	printf("%d\n",num-100);
+
+
 
     // Para cada imagen
 	for (int i = 1; i <= cantImagenes; i++)
@@ -82,16 +109,20 @@ int main (int argc, char **argv)
 		
 		//1. Leer la imagen
 		JpegData jpegData = leerImagenes(filename);
-		
+		//if(i==1)printearValores(jpegData,jpegData.width,jpegData.height); 
+
 		//2. Convertir a escala de grises
 		jpegData = convertirAEscalaGrises(jpegData);
+		//if(i==1)printearValores(jpegData,jpegData.width,jpegData.height); 
 		
 		//3. aplicar filtro laplaciano
 		jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
-		/*
+		//if(i==1)printearValores(jpegData,jpegData.width,jpegData.height); 
+		
 		//4. binarizar imagen
 		jpegData = binarizarImagen(jpegData, umbralBin);
-	    */
+	    //if(i==8)printearValores(jpegData,jpegData.width,jpegData.height); 
+		
 		//5. Clasificar imagen
 		char *nearlyBlack = analisisDePropiedad(jpegData, umbralNeg);
 
