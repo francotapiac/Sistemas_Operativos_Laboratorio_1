@@ -5,5 +5,5 @@
 JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara);
 int **leerMascara(char *nombreMascara);
 int **crearPunteroMascara();
-void calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h);
+void calcularFiltro(JpegData *img,JpegData *nuevo,int **mascara,int loc,int w, int h);
 #endif

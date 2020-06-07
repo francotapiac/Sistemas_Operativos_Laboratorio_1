@@ -1,3 +1,4 @@
+
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,10 +83,16 @@ int main (int argc, char **argv)
 		
 		//2. Convertir a escala de grises
 		jpegData = convertirAEscalaGrises(jpegData);
+		char grises[30];
+		sprintf(grises,"./escala_%i.jpg",i);
+		escribirImagenes(jpegData, "escalagrises",grises);
 		
 		//3. aplicar filtro laplaciano
 		jpegData = aplicarFiltroLaplaciano(jpegData,mascara);
-		
+		char filtro[30];
+		sprintf(filtro,"./lap_%i.jpg",i);
+		escribirImagenes(jpegData, "escalagrises",filtro);
+
 		//4. binarizar imagen
 		jpegData = binarizarImagen(jpegData, umbralBin);
 	    
@@ -109,10 +116,5 @@ int main (int argc, char **argv)
     
 	return 0;
 }
-
-
-
-
-
 
 

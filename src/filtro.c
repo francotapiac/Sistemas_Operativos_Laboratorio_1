@@ -41,43 +41,82 @@ int **crearPunteroMascara(){
 
 JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
     int w = img.width;
-    int h= img.height;
+    int h = img.height;
     int loc = w +1;
     int i,j;
 
+    JpegData nuevo;
+    nuevo.width  = w;
+    nuevo.height = h;
+    nuevo.ch     = img.ch;
+    nuevo.data = img.data;
+    alloc_jpeg(&nuevo);
 
+   /* int loc_aux = 0;
+    for(i = 0; i< h; i++){
+        for(j = 0; j < w; j++){
+            printf("%d ",img.data[loc_aux]);
+            loc_aux++;
+        }
+       printf("\n");
+    }
+    printf("\n");*/
     for(i = 1; i < h -1; i++){
         for(j = 1; j < w - 1; j++){
-            calcularFiltro(&img,mascara,loc,w,h);
+            calcularFiltro(&img,&nuevo,mascara,loc,w,h);
             loc++;
         }
         loc+=2;
     }
 
-    //liberarJpeg(&img);
-    
+ //   liberarJpeg(&img);
+   /*  loc_aux = 0;
+    for(i = 0; i< h; i++){
+        for(j = 0; j < w; j++){
+            printf("%d ",nuevo.data[loc_aux]);
+            loc_aux++;
+        }
+       printf("\n");
+    }*/
 
-
-    return img;
+    return nuevo;
 
 }
 
-void  calcularFiltro(JpegData *img,int **mascara,int loc,int w, int h){
-    int n1 = img->data[loc - w -1] * mascara[0][0];
-    int n2 = img->data[loc - w] * mascara[0][1]; 
-    int n3 = img->data[loc - w + 1]*mascara[0][2]; 
-    int n4 = img->data[loc - 1]*mascara[1][0]; 
-    int n5 = img->data[loc]*mascara[1][1]; 
-    int n6 = img->data[loc + 1]*mascara[1][2]; 
-    int n7 = img->data[loc + w -1]*mascara[2][0]; 
-    int n8 = img->data[loc + w]*mascara[2][1]; 
-    int n9 = img->data[loc + w +1]*mascara[2][2];
+void  calcularFiltro(JpegData *img,JpegData *nuevo,int **mascara,int loc,int w, int h){
+    int n1 = img->data[loc - w -1];
+    n1 = n1* mascara[0][0];
+    int n2 = img->data[loc - w] ; 
+    n2= n2 * mascara[0][1];
+    int n3 = img->data[loc - w + 1] ; 
+    n3 = n3 * mascara[0][2];
+    int n4 = img->data[loc - 1] ; 
+    //printf("data(w+1): %d --- ",img->data[2*w + 1]);
+    n4 = n4 * mascara[1][0];
+    int n5 = img->data[loc]; 
+    n5 = n5 * mascara[1][1];
+    int n6 = img->data[loc + 1] ;
+    n6 = n6 * mascara[1][2]; 
+    int n7 = img->data[loc + w -1] ;
+    n7 = n7 * mascara[2][0]; 
+    int n8 = img->data[loc + w] ; 
+    n8 = n8 * mascara[2][1];
+    int n9 = img->data[loc + w +1] ;
+    n9 = n9* mascara[2][2];
 
+   
     int resultado = n1 + n2 + n3 + n4 + n5 + n6 +n7 +n8 +n9; 
-    if(resultado < 0)
+   /*  if(resultado < 0)
         resultado = 0;
     else if(resultado > 255)
-        resultado = 255;
-    img->data[loc] = (resultado + 255)/2;
+        resultado = 255;*/
+ 
+    //printf("pixel: %d --- ",img->data[loc] );
+   //printf("pixel: %" PRIu8 " ", img->data[loc]);
+    nuevo->data[loc] = resultado;
 
+    //printf("resultado: %d --- ",resultado);
+    //printf("n1:%d n2:%d n3:%d n4:%d n5:%d n6:%d n7:%d n8:%d n9:%d \n",n1,n2,n3,n4,n5,n6,n7,n8,n9);
+ 
+    
 }
