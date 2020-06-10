@@ -6,15 +6,18 @@
 #include "../incl/filtro.h"
 #include "../incl/lecturaImagenes.h"
 
+//Entradas:     - string (puntero a char) que representa el nombre del archivo de la mascara
+//Funcionamiento: se encarga de abrir el archivo, leer la mascara contenida en el y almacenar
+//                la mascara en una matriz de enteros.
+//Salidas:      - Matriz de enteros que representa la mascara leída.
+
 int **leerMascara(char *nombreMascara){
     FILE *archivo = fopen(nombreMascara,"r");
     if(archivo == NULL){
         printf("Error: no se ha detectado un archivo de texto \n"); 
     }
 
-    
     int **mascara = crearPunteroMascara();
-    
     int i = 0;
     int j = 0;
     int num1,num2,num3;
@@ -24,11 +27,12 @@ int **leerMascara(char *nombreMascara){
         mascara[i][1] = num2;
         mascara[i][2] = num3;
     }
-
-  
     return mascara;
 }
 
+//Entradas:     
+//Funcionamiento: asigna un espacio de memoria a la matriz de enteros que representa a la mascara.
+//Salidas:      - Matriz de enteros y el espacio de memoria pertinente.
 int **crearPunteroMascara(){
     int i= 0;
     int **mascara = (int**)malloc(3*sizeof(int*));
@@ -38,6 +42,12 @@ int **crearPunteroMascara(){
     return mascara;
 }
 
+//Entradas:     - Imagen en escala de grises y del tipo JpegData
+//              - Matriz de enteros que representa la mascara para aplicar el filtro.
+//Funcionamiento: se encarga de recorrer cada pixel de la imagen, con el objetivo de aplicar
+//                el filtro laplaciano. Se utilizan las dimensiones originales simulando una
+//                matriz de de píxeles.
+//Salidas:      - Imagen del tipo JpegData luego de aplicar el filtro laplaciano sobre ella
 
 JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
     int w = img.width;
@@ -45,45 +55,41 @@ JpegData aplicarFiltroLaplaciano(JpegData img,int **mascara){
     int loc = w +1;
     int i,j;
 
-    JpegData nuevo;
-    nuevo.width  = w;
-    nuevo.height = h;
-    nuevo.ch     = img.ch;
-    nuevo.data = img.data;
-    alloc_jpeg(&nuevo);
+    JpegData nueva;     //Se crea nueva imagen con el objetivo de no perder los
+                        //valores originales (img.data) de la imagen
+    nueva.height = h;
+    nueva.width = w;
+    nueva.ch = 1;
+    alloc_jpeg(&nueva);
 
-   /* int loc_aux = 0;
-    for(i = 0; i< h; i++){
-        for(j = 0; j < w; j++){
-            printf("%d ",img.data[loc_aux]);
-            loc_aux++;
-        }
-       printf("\n");
+    for (int i = 0; i < w*h; i++){
+        nueva.data[i] = img.data[i];
     }
-    printf("\n");*/
+
     for(i = 1; i < h -1; i++){
         for(j = 1; j < w - 1; j++){
-            calcularFiltro(&img,&nuevo,mascara,loc,w,h);
+            calcularFiltro(&img,&nueva,mascara,loc,w,h);
             loc++;
         }
-        loc+=2;
+        loc+=2;         //Permite omitir los margenes de la matriz (en términos visuales) de píxeles
     }
 
- //   liberarJpeg(&img);
-   /*  loc_aux = 0;
-    for(i = 0; i< h; i++){
-        for(j = 0; j < w; j++){
-            printf("%d ",nuevo.data[loc_aux]);
-            loc_aux++;
-        }
-       printf("\n");
-    }*/
-
-    return nuevo;
+    return nueva;
 
 }
 
-void  calcularFiltro(JpegData *img,JpegData *nuevo,int **mascara,int loc,int w, int h){
+//Entradas:     - Imagen original en escala de grises y del tipo JpegData
+//              - Imagen copiada (nueva) de la original en escala de grises y del tipo JpegData
+//              - Matriz de enteros que representa la mascara para aplicar el filtro.
+//              - entero llamado loc que representa la locacion del pixel que cambiará
+//                tras aplicar el filtro.
+//              - Dos enteros, w y h, quienes representan el ancho y alto de la imagen original.
+//Funcionamiento: se encarga de aplicar el filtro laplaciano en cada locación de la imagen copiada. Para
+//                hacer las operaciones en cada pixel, se hace uso de la imagen original, debido a que
+//                esta no posee los cambios luego de implementar el filtro.
+//Salidas:      - Imagen copiada del tipo JpegData luego de modificar uno de sus pixeles.
+
+void  calcularFiltro(JpegData *img,JpegData *nueva,int **mascara,int loc,int w, int h){
     int n1 = img->data[loc - w -1];
     n1 = n1* mascara[0][0];
     int n2 = img->data[loc - w] ; 
@@ -91,7 +97,6 @@ void  calcularFiltro(JpegData *img,JpegData *nuevo,int **mascara,int loc,int w, 
     int n3 = img->data[loc - w + 1] ; 
     n3 = n3 * mascara[0][2];
     int n4 = img->data[loc - 1] ; 
-    //printf("data(w+1): %d --- ",img->data[2*w + 1]);
     n4 = n4 * mascara[1][0];
     int n5 = img->data[loc]; 
     n5 = n5 * mascara[1][1];
@@ -103,20 +108,7 @@ void  calcularFiltro(JpegData *img,JpegData *nuevo,int **mascara,int loc,int w, 
     n8 = n8 * mascara[2][1];
     int n9 = img->data[loc + w +1] ;
     n9 = n9* mascara[2][2];
-
-   
     int resultado = n1 + n2 + n3 + n4 + n5 + n6 +n7 +n8 +n9; 
-   /*  if(resultado < 0)
-        resultado = 0;
-    else if(resultado > 255)
-        resultado = 255;*/
+    nueva->data[loc] = resultado;
  
-    //printf("pixel: %d --- ",img->data[loc] );
-   //printf("pixel: %" PRIu8 " ", img->data[loc]);
-    nuevo->data[loc] = resultado;
-
-    //printf("resultado: %d --- ",resultado);
-    //printf("n1:%d n2:%d n3:%d n4:%d n5:%d n6:%d n7:%d n8:%d n9:%d \n",n1,n2,n3,n4,n5,n6,n7,n8,n9);
- 
-    
 }

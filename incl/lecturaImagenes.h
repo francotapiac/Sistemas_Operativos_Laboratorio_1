@@ -2,7 +2,6 @@
 #define EXAMPLE_H
 #include "estructuras.h"
 
-Pixel crearPixel(uint8_t r, uint8_t g, uint8_t b);
 void alloc_jpeg(JpegData *jpegData);
 void liberarJpeg(JpegData *jpegData);
 JpegData leerImagenes();
