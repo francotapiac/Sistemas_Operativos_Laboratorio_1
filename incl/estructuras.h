@@ -3,18 +3,13 @@
 #define ESTRUCTURAS_H
 
 
-// JPEG image struct
+// Estructura de imagen JPEG
 typedef struct {
-    uint8_t *data;   // raw data
+    uint8_t *data;   // arreglo de píxeles
     uint32_t width;
     uint32_t height;
-    uint32_t ch;     // color channels
+    uint32_t ch;     // canal del color:  3 para RGB
+                    //                    1 para escala de grises
 } JpegData;
-
-typedef struct {
-    int R;
-    int G;
-    int B;
-} Pixel;
 
 #endif

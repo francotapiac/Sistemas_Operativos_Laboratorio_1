@@ -93,9 +93,6 @@ int main (int argc, char **argv)
 	uint8_t num = 10;
 	num = num*(-1);
 	int entero = (int)num;
-	printf("%" PRIu8 "\n", num);
-	printf("%d\n",num-100);
-
 
 
     // Para cada imagen
@@ -143,10 +140,3 @@ int main (int argc, char **argv)
     
 	return 0;
 }
-
-
-
-
-
-
-
