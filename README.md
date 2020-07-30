@@ -12,11 +12,11 @@ make
 
 El nombre del programa creado es "Ejecutable" por lo que para ejecutarlo se debe usar ese nombre. Además, para ejecutar el programa el programa se deben utilizar las siguientes flags:
 
-    * -u [Entero]  ->  Umbral para binarizar la imagen
-    * -n [Entero]  ->  Umbral para la clasificación de negrura de la imagen
-    * -c [Entero]  ->  Cantidad de imagenes a analizar
-    * -m [String]  ->  Nombre del archivo que contiene la mascara a utilizar
-    * -b (opcional)  ->  Mostrar resultados por consola (Esta flag es opcional)
+* -u [Entero]  ->  Umbral para binarizar la imagen
+* -n [Entero]  ->  Umbral para la clasificación de negrura de la imagen
+* -c [Entero]  ->  Cantidad de imagenes a analizar
+* -m [String]  ->  Nombre del archivo que contiene la mascara a utilizar
+* -b (opcional)  ->  Mostrar resultados por consola (Esta flag es opcional)
 
 A continuación se muestran ejemplos de como ejecutar el programa:
 
