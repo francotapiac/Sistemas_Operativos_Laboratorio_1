@@ -1,9 +1,11 @@
+//Directivas de Preprocesamiento
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <jpeglib.h>
 #include <inttypes.h>
 #include "../incl/lecturaImagenes.h"
+
 
 //Entradas:     - Una imagen del tipo JpegData.
 //Funcionamiento: crea un espacio de memoria para la imagen

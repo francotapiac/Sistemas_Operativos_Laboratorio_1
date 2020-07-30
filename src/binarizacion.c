@@ -1,3 +1,4 @@
+//Directivas de Preprocesamiento
 #include "../incl/binarizacion.h"
 #include <stdint.h>
 #include <stdio.h>

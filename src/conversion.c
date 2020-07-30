@@ -1,8 +1,10 @@
+//Directivas de Preprocesamiento
 #include <stdio.h>
 #include <jpeglib.h>
 #include <stdint.h>
 #include "../incl/conversion.h"
 #include "../incl/lecturaImagenes.h"
+
 
 //Entradas:     - Imagen en formato RGB del tipo JpegData.
 //Funcionamiento: se crea una copia de la imagen original, para luego recorrer
@@ -11,7 +13,6 @@
 //                Y, la cual representará los nuevos pixeles de la imagen en 
 //                escala de grises.
 //Salidas:      - Imagen en escala de grises del tipo JpegData
-
 JpegData convertirAEscalaGrises(JpegData img){
     int len = img.height*img.width*img.ch;
     int loc = 0;

@@ -1,3 +1,4 @@
+//Directivas de Preprocesamiento
 #include <stdint.h>
 #ifndef ESTRUCTURAS_H
 #define ESTRUCTURAS_H

@@ -1,4 +1,6 @@
+//Directivas de Preprocesamiento
 #include "../incl/clasificacion.h"
+
 
 //Entradas:     - Una imagen del tipo JpegData que ha sido binarizada.
 //              - Un entero que representa al umbral de clasificación.
@@ -9,7 +11,6 @@
 //                nearly black.
 //Salidas:      - Un puntero a char (string) que indica si la imagen es
 //                nearly black o no.
-
 char *analisisDePropiedad(JpegData img, int umbral){
 
     int len = img.width*img.height;

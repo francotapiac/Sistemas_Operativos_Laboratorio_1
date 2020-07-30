@@ -1,3 +1,4 @@
+//Directivas de Preprocesamiento
 #include <stdio.h>
 #include <jpeglib.h>
 #include <stdint.h>

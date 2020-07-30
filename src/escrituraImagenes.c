@@ -1,9 +1,11 @@
+//Directivas de Preprocesamiento
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <jpeglib.h>
 #include <inttypes.h>
 #include "../incl/escrituraImagenes.h"
+
 
 //Entradas:     - Imagen del tipo JpegData llamada jpegData
 //              - Nombre de salida del tipo char llamado nombreSalida
@@ -14,7 +16,6 @@
 //                comprime la imagen utilizado a lo largo del programa.
 //Salidas:      - Entero que indica la correcta creación del archivo (valor 1).
 //              - Imagen con formato JPEG
-
 int escribirJpeg(const JpegData *jpegData,
                 const char *nombreSalida,
                 struct jpeg_error_mgr *jerr, 
